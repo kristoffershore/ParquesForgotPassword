@@ -10,12 +10,10 @@
     <div class="container">
         <h1>Reset Your Password</h1>
         <form id="resetPasswordForm">
-            <label for="token">Token:</label>
-            <input type="text" id="token" name="token" required><br><br>
+            <!-- These fields will remain hidden -->
+            <input type="hidden" id="token" name="token">
+            <input type="hidden" id="email" name="email">
 
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required><br><br>
-            
             <label for="newPassword">New Password:</label>
             <input type="password" id="newPassword" name="newPassword" required><br><br>
             
@@ -24,6 +22,17 @@
     </div>
 
     <script>
+        // Get query parameters from the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const token = urlParams.get('token');
+        const email = urlParams.get('email');
+
+        // Store the token and email in hidden input fields
+        if (token && email) {
+            document.getElementById('token').value = token;
+            document.getElementById('email').value = email;
+        }
+
         // Handle form submission
         document.getElementById('resetPasswordForm').addEventListener('submit', async (e) => {
             e.preventDefault(); // Prevent default form submission
